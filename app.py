@@ -91,6 +91,8 @@ def get_conversation_chain(vectorstore, model_name):
     # Create a retriever with the specified top_k
     retriever = vectorstore.as_retriever(search_kwargs={"k": st.session_state.top_k})
     
+   
+    
     conversation_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=retriever,
@@ -109,12 +111,12 @@ model = st.sidebar.selectbox(
 
 
 st.session_state.conversational_memory_length = st.sidebar.slider('Conversational memory length:', 0, 10, value=0)
-st.session_state.chunk_size = st.sidebar.slider('Chunk size:', 1000, 8000, value=2000, step=500)
-st.session_state.chunk_overlap = st.sidebar.slider('Chunk overlap:', 0, 1000, value=200, step=100)
-st.session_state.top_k = st.sidebar.slider('Top K documents to retrieve:', 1, 10, value=5)
+st.session_state.chunk_size = st.sidebar.slider('Chunk size:', 1000, 8000, value=1000, step=500)
+st.session_state.chunk_overlap = st.sidebar.slider('Chunk overlap:', 0, 1000, value=100, step=100)
+st.session_state.top_k = st.sidebar.slider('Top K documents to retrieve:', 1, 20, value=20)
 
 # Add a text area for the prompt
-prompt = st.sidebar.text_area("Enter a prompt for the LLM:", key="prompt")
+prompt = st.sidebar.text_area("Enter a prompt for the LLM:", key="prompt", value ="You are an AI assistant with deep expertise in the Llama 3 foundation model. Your role is to explain the model's architecture, its training process, and capabilities following training. Users may inquire about topics such as pre-training data, model scaling, or performance evaluation experiments. Provide clear and insightful responses based on the document provided. If any requested information is not covered in the document, you may draw on your own knowledge, but ensure the user is aware that this information is not directly from the given source.")
 
 if st.sidebar.button("Documents Embedding"):
     vector_embedding()
