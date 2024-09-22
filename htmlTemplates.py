@@ -29,7 +29,7 @@ css = '''
 bot_template = '''
 <div class="chat-message bot">
     <div class="avatar">
-        <img src="https://cpng.pikpng.com/pngl/s/398-3982669_llama-llama-profile-pic-llama-profile-clipart.png" style="max-height: 100px; max-width: 100px; border-radius: 50%; object-fit: cover;">
+        <img src="https://www.ox.ac.uk/sites/files/oxford/field/field_image_main/shutterstock_1175616652.jpg" style="max-height: 100px; max-width: 100px; border-radius: 50%; object-fit: cover;">
     </div>
     <div class="message">{{MSG}}</div>
 </div>

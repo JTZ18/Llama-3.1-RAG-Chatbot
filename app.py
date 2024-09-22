@@ -127,7 +127,7 @@ if st.sidebar.button("Documents Embedding"):
 st.markdown(
     """
     <div style="text-align: center;">
-        <img src="https://i.pinimg.com/originals/16/50/d6/1650d692b6137dfb4c0381d1b09962ea.gif" width="150">
+        <img src="https://cdn.dribbble.com/users/488656/screenshots/14380421/llamadrama.gif" width="150">
     </div>
     """,
     unsafe_allow_html=True
