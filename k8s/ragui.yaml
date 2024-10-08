@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama31-rag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama31-rag
+  template:
+    metadata:
+      labels:
+        app: llama31-rag
+    spec:
+      containers:
+      - name: llama31-rag
+        image: asia-southeast1-docker.pkg.dev/aiap-17-ds/aiap-17-ds/jon_taylor_lim_mt/llama-3.1-rag-chatbot:v1.0
+        env:
+        - name: OLLAMA_BASE_URL
+          value: "http://ollama.runai-aiap-17-ds.svc.cluster.local:80"
+        ports:
+        - containerPort: 8501
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llama31-rag-ui-service
+spec:
+  type: ClusterIP
+  selector:
+    app: llama31-rag
+  ports:
+  - port: 8501
+    targetPort: 8501
+    protocol: TCP

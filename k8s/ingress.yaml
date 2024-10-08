@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: llama31-rag
+  namespace: runai-aiap-17-ds
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: llama31-rag.aiap17.aisingapore.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: llama31-rag-ui-service
+            port:
+              number: 8501
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - '*.aiap17.aisingapore.net'
+    secretName: coder-tls-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.247.175.46
