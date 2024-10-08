@@ -18,11 +18,12 @@ This project is a Streamlit-based chatbot that uses the Llama 3.1 language model
 Create a file named `.env` in the root directory of the project and add the following content:
 
 ```
-GOOGLE_API_KEY=your_google_api_key_here
-GROQ_API_KEY=your_groq_api_key_here
-```
+# If running locally
+OLLAMA_BASE_URL=http://localhost:11434
 
-Replace `your_google_api_key_here` and `your_groq_api_key_here` with your actual API keys.
+# If deploying as a kubernetes service on runai cluster
+OLLAMA_BASE_URL=http://ollama.runai-aiap-17-ds.svc.cluster.local:80
+```
 
 ### 2. Install requirements
 
@@ -55,6 +56,33 @@ This will start the Streamlit server and open the app in your default web browse
 ## Note
 
 Ensure that the PDF file "The Llama 3 Herd of Models" is placed in the `Data` folder before running the app.
+
+## To Deploy on a Kubernetes Cluster
+
+1. Build the Docker image:
+
+```
+docker build -t llama-3.1-rag-chatbot:latest .
+```
+
+2. Push the Docker image to a container registry:
+
+```
+docker tag llama-3.1-rag-chatbot:latest asia-southeast1-docker.pkg.dev/aiap-17-ds/aiap-17-ds/jon_taylor_lim_mt/llama-3.1-rag-chatbot:v1.1
+docker push asia-southeast1-docker.pkg.dev/aiap-17-ds/aiap-17-ds/jon_taylor_lim_mt/llama-3.1-rag-chatbot:v1.1
+```
+
+3. Apply the Kubernetes configuration:
+Ensure you run these commands on the kubernetes cluster you want to deploy to.
+```
+kubectl apply -f k8s/ragui.yaml
+kubectl apply -f k8s/ollama.yaml
+kubectl apply -f k8s/ingress.yaml
+```
+
+4. Verify the deployment:
+Access the Streamlit app here: https://llama31-rag.aiap17.aisingapore.net/
+
 
 ## Contributing
 
